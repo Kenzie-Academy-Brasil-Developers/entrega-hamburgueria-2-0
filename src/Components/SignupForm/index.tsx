@@ -11,6 +11,7 @@ import {
   MainContainer,
   RedFont,
 } from "./styles";
+import { useHistory } from "react-router-dom";
 
 interface UserData {
   email: string;
@@ -20,6 +21,7 @@ interface UserData {
 }
 
 const SignupForm = () => {
+  const history = useHistory();
   const schema = yup.object().shape({
     email: yup.string().email("Email Inválido").required("Email obrigatório"),
     name: yup.string().required("Nome obrigatório"),
@@ -40,7 +42,9 @@ const SignupForm = () => {
     api
       .post("/signup", data)
       .then((response) => {
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("userId", response.data.user.id);
+        history.push("/dashboard");
       })
       .catch((err) => console.log(err));
   };

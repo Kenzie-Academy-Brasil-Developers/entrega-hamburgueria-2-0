@@ -1,7 +1,9 @@
+import ProductsDashboard from "../../Components/ProductsDashboard";
+
 const Dashboard = () => {
   return (
     <>
-      <p>Dashboard</p>
+      <ProductsDashboard />
     </>
   );
 };

@@ -11,6 +11,7 @@ import {
   MainContainer,
   RedFont,
 } from "./styles";
+import { useHistory } from "react-router-dom";
 
 interface UserData {
   email: string;
@@ -18,6 +19,7 @@ interface UserData {
 }
 
 const LoginForm = () => {
+  const history = useHistory();
   const schema = yup.object().shape({
     email: yup.string().email("Email inválido").required("Email é obrigatório"),
     password: yup.string().required("Senha é obrigatória"),
@@ -35,7 +37,9 @@ const LoginForm = () => {
     api
       .post("/login", data)
       .then((response) => {
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("userId", response.data.user.id);
+        history.push("/dashboard");
       })
       .catch((err) => console.log(err));
   };
