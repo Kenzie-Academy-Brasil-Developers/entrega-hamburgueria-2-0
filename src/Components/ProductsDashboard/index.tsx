@@ -15,6 +15,7 @@ import {
 } from "./styles";
 import { FiShoppingCart } from "react-icons/fi";
 import { BiLogInCircle } from "react-icons/bi";
+import Cart from "../Cart";
 
 interface Product {
   title: string;
@@ -25,6 +26,7 @@ interface Product {
 
 const ProductsDashboard = () => {
   const [productsList, setProductsList] = useState([]);
+  const [showCart, setShowCart] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -40,6 +42,10 @@ const ProductsDashboard = () => {
     history.push("/");
   };
 
+  const displayCart = () => {
+    setShowCart(!showCart);
+  };
+
   return (
     <>
       <AppBar>
@@ -50,7 +56,8 @@ const ProductsDashboard = () => {
           <SearchInput placeholder="Pesquise" />
         </SearchContainer>
         <CartIcon>
-          <FiShoppingCart />
+          <FiShoppingCart onClick={displayCart} cursor="pointer" />
+          {showCart && <Cart showCart={displayCart} />}
         </CartIcon>
         <LogoutIcon onClick={logout}>
           <BiLogInCircle />

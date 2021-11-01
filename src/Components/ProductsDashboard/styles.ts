@@ -41,7 +41,6 @@ export const CartIcon = styled.section`
   top: 15px;
   color: white;
   font-size: 1.5rem;
-  cursor: pointer;
 `;
 
 export const LogoutIcon = styled.section`

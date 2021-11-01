@@ -1,12 +1,25 @@
+import { PopupBox, Box, CloseIcon } from "./styles";
 import { useCart } from "../../Providers/CartProvider";
 
-const Cart = () => {
-  const { removeFromCart } = useCart();
+interface functions {
+  showCart: () => void;
+}
+
+const Cart = ({ showCart }: functions) => {
+  const { cart } = useCart();
+
   return (
-    <>
-      <p>Cart</p>
-      <button onClick={() => removeFromCart}>Deletar do Carrinho</button>
-    </>
+    <PopupBox>
+      <Box>
+        <CloseIcon onClick={showCart} />
+        {cart.length === 0 && (
+          <div>
+            <h1>Carrinho Vazio</h1>
+            <p>Adicione algo para ver aqui</p>
+          </div>
+        )}
+      </Box>
+    </PopupBox>
   );
 };
 
